@@ -8,7 +8,7 @@ def Part2(f):
 
     do = True
 
-    for x in re.findall(r'(mul)\((\d{1,3}),(\d{1,3})\)|(don\'t)|(do)',f.read()):
+    for x in re.findall(r'(mul)\((\d{1,3}),(\d{1,3})\)|(don\'t\(\))|(do\(\))',f.read()):
         if x[3]:
             do = False
         if x[4]:

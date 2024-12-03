@@ -14,8 +14,8 @@ def Part1(f):
     left.sort()
     right.sort()
 
-    for i in range(len(left)):
-        res += abs(left[i]-right[i])
+    for a,b in zip(left,right):
+        res += abs(a-b)
 
     return res
 
@@ -29,9 +29,6 @@ def Part2(f):
         m = re.match('(\d+)   (\d+)',l)
         left.append(int(m[1]))
         right.append(int(m[2]))
-
-    left.sort()
-    right.sort()
 
     for i in left:
         res += right.count(i) * i
