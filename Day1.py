@@ -1,4 +1,7 @@
 import re
+import HelperFunctions
+
+day_number = 1
 
 def Part1(f):
     res = 0
@@ -6,7 +9,7 @@ def Part1(f):
     left = []
     right = []
 
-    for l in f.readlines():
+    for l in f.splitlines():
         m = re.match('(\d+)   (\d+)',l)
         left.append(int(m[1]))
         right.append(int(m[2]))
@@ -25,7 +28,7 @@ def Part2(f):
     left = []
     right = []
 
-    for l in f.readlines():
+    for l in f.splitlines():
         m = re.match('(\d+)   (\d+)',l)
         left.append(int(m[1]))
         right.append(int(m[2]))
@@ -36,7 +39,7 @@ def Part2(f):
     return res
 
 if __name__=="__main__":
-    f = open('Input/Day1.txt','r')
-    print('Part 1: ',Part1(f))
-    f.seek(0)
-    print('Part 2: ', Part2(f))
+    input = HelperFunctions.ReadInput(day_number)
+    if input != None:
+        print(f'Part 1: {Part1(input)}')
+        print(f'Part 2: {Part2(input)}')

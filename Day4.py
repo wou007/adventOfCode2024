@@ -1,11 +1,14 @@
 import re
+import HelperFunctions
+
+day_number = 4
 
 def Part1(f):
     res = 0
 
     field = []
 
-    for l in f.readlines():
+    for l in f.splitlines():
         field.append(l)
 
     #horizontal
@@ -49,7 +52,6 @@ def Part1(f):
                     pass
             y+=1
             x-=1
-        print(l)
         res += l.count('XMAS')
         res += l[::-1].count('XMAS') 
 
@@ -60,11 +62,11 @@ def Part2(f):
 
     field = []
 
-    for l in f.readlines():
+    for l in f.splitlines():
         field.append(l)
 
     for y in range(1,len(field)-1):
-        for x in range(1,len(field)):
+        for x in range(1,len(field)-1):
             if field[y][x] == 'A':
                 if field[y-1][x-1] == 'M' and field[y+1][x+1] == 'S':
                     if field[y-1][x+1] == 'M' and field[y+1][x-1] == 'S':
@@ -80,7 +82,7 @@ def Part2(f):
     return res
 
 if __name__=="__main__":
-    f = open('Input/Day4.txt','r')
-    print('Part 1: ',Part1(f))
-    f.seek(0)
-    print('Part 2: ', Part2(f))
+    input = HelperFunctions.ReadInput(day_number)
+    if input != None:
+        print(f'Part 1: {Part1(input)}')
+        print(f'Part 2: {Part2(input)}')

@@ -1,14 +1,17 @@
 import re
+import HelperFunctions
+
+day_number = 3
 
 def Part1(f):
-    return sum([(int(x[0])*int(x[1])) for x in re.findall(r'mul\((\d{1,3}),(\d{1,3})\)',f.read())])  
+    return sum([(int(x[0])*int(x[1])) for x in re.findall(r'mul\((\d{1,3}),(\d{1,3})\)',f)])  
 
 def Part2(f):
     res = 0
 
     do = True
 
-    for x in re.findall(r'(mul)\((\d{1,3}),(\d{1,3})\)|(don\'t\(\))|(do\(\))',f.read()):
+    for x in re.findall(r'(mul)\((\d{1,3}),(\d{1,3})\)|(don\'t\(\))|(do\(\))',f):
         if x[3]:
             do = False
         if x[4]:
@@ -19,7 +22,7 @@ def Part2(f):
     return res
 
 if __name__=="__main__":
-    f = open('Input/Day3.txt','r')
-    print('Part 1: ',Part1(f))
-    f.seek(0)
-    print('Part 2: ', Part2(f))
+    input = HelperFunctions.ReadInput(day_number)
+    if input != None:
+        print(f'Part 1: {Part1(input)}')
+        print(f'Part 2: {Part2(input)}')
