@@ -6,11 +6,12 @@ import Day1
 import Day2
 import Day3
 import Day4
+import Day5
 
-RUNS_FOR_TIMING = 50
+RUNS_FOR_TIMING = 5
 
 if __name__ == "__main__":
-    days = [Day1, Day2, Day3, Day4]
+    days = [Day1, Day2, Day3, Day4, Day5]
     
     totalStart = time.time()
     totalTime = 0
