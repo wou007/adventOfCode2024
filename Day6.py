@@ -1,5 +1,6 @@
 import re
 import HelperFunctions
+import copy
 
 day_number = 6
 
@@ -46,6 +47,39 @@ def Part1(f):
 
     return sum([l.count('X') for l in thing])
 
+def IsThingLooping(thing, x, y):
+    direction = UP
+    repeatedVisitCounter = 0
+    while x >= 0 and y >= 0 and x < len(thing[0]) and y < len(thing):
+        nextX = x
+        nextY = y
+        if direction == UP:
+            nextY -= 1
+        if direction == DOWN:
+            nextY += 1
+        if direction == LEFT:
+            nextX -= 1
+        if direction == RIGHT:
+            nextX += 1
+        if nextX >= 0 and nextY >= 0 and nextX < len(thing[0]) and nextY < len(thing):
+            if thing[y][x] == 'X':
+                repeatedVisitCounter += 1
+                if repeatedVisitCounter > 10000:
+                    return True
+            else:
+                repeatedVisitCounter = 0
+            if thing[nextY][nextX] == '#':
+                direction = (direction + 1) % 4
+            else:
+                thing[y][x] = 'X'
+                y = nextY
+                x = nextX
+        else:
+            thing[y][x] = 'X'
+            return False
+    
+    return False
+
 def Part2(f):
     res = 0
 
@@ -61,6 +95,10 @@ def Part2(f):
 
         thing.append(list(l))
 
+    origThing = copy.deepcopy(thing)
+    origX = x
+    origY = y
+
     while x >= 0 and y >= 0 and x < len(thing[0]) and y < len(thing):
         nextX = x
         nextY = y
@@ -73,41 +111,23 @@ def Part2(f):
         if direction == RIGHT:
             nextX += 1
         if nextX >= 0 and nextY >= 0 and nextX < len(thing[0]) and nextY < len(thing):
-            if thing[nextY][nextX] != '.':
-                if thing[nextY][nextX] == '#':
-                    direction = (direction + 1) % 4
-                else:
-                    if thing[nextY][nextX] == '^' and direction == LEFT:
-                        res += 1
-                        [print(''.join(l)) for l in thing]
-                        print('')
-                    if thing[nextY][nextX] == '>' and direction == UP:
-                        res += 1
-                        [print(''.join(l)) for l in thing]
-                        print('')
-                    if thing[nextY][nextX] == '<' and direction == DOWN:
-                        res += 1
-                        [print(''.join(l)) for l in thing]
-                        print('')
-                    if thing[nextY][nextX] == 'V' and direction == RIGHT:
-                        res += 1
-                        [print(''.join(l)) for l in thing]
-                        print('')
-            if thing[nextY][nextX] != '#':
-                if direction == UP:
-                    thing[y][x] = '^'
-                if direction == DOWN:
-                    thing[y][x] = 'V'
-                if direction == LEFT:
-                    thing[y][x] = '<'
-                if direction == RIGHT:
-                    thing[y][x] = '>'
+            if thing[nextY][nextX] == '#':
+                direction = (direction + 1) % 4
+            else:
+                thing[y][x] = 'X'
                 y = nextY
                 x = nextX
         else:
+            thing[y][x] = 'X'
             break
 
-    # [print(''.join(l)) for l in thing]
+    for ty in range(len(thing)):
+        for tx in range(len(thing[0])):
+            if thing[ty][tx] == 'X':
+                copyThing = copy.deepcopy(origThing)
+                copyThing[ty][tx] = '#'
+                if IsThingLooping(copyThing,origX,origY):
+                    res += 1
 
     return res
 
