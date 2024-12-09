@@ -9,11 +9,13 @@ import Day4
 import Day5
 import Day6
 import Day7
+import Day8
+import Day9
 
 RUNS_FOR_TIMING = 1
 
 if __name__ == "__main__":
-    days = [Day1, Day2, Day3, Day4, Day5, Day6, Day7]
+    days = [Day1, Day2, Day3, Day4, Day5, Day6, Day7, Day8, Day9]
     
     totalStart = time.time()
     totalTime = 0
