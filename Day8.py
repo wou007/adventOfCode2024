@@ -78,7 +78,8 @@ def Part2(f):
         
         for a in ant:
             if len(ant) > 1:
-                news.append([a[1],a[0]])
+                if not [a[1],a[0]] in news:
+                    news.append([a[1],a[0]])
             for b in ant:
                 if a != b:
                     x1 = a[1] 
@@ -88,7 +89,7 @@ def Part2(f):
                     do = True
                     deltaX = abs(a[1]-b[1])
                     deltaY = abs(a[0]-b[0])
-                    for i in range(1000):
+                    while do:
                         do = False
                         if a[1] < b[1]: #X
                             x1 -= deltaX
