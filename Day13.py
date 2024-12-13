@@ -4,6 +4,15 @@ import HelperFunctions
 day_number = 13
 
 def FindCost(a,b,prize):
+    A = abs((prize[0] * b[1] - prize[1] * b[0]) / (a[0]*b[1] - a[1]*b[0]))
+    B = abs((prize[0] * a[1] - prize[1] * a[0]) / (a[0]*b[1] - a[1]*b[0]))
+
+    if (A).is_integer() and (B).is_integer():
+        return int(A * 3 + B)
+
+    return 0
+
+def FindCostOld(a,b,prize):
     aCount = 0
     bCount = 0
     
@@ -58,7 +67,6 @@ def Part2(f):
         if p:
             prize = [int(p[1]) + 10000000000000,int(p[2]) + 10000000000000]
             res += FindCost(butA,butB,prize)
-            print(res)
 
     return res
 
